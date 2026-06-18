@@ -113,7 +113,7 @@ const FeatureZoom = () => {
           <div className="relative w-[80%] max-w-[550px] aspect-4/3 flex items-center justify-center z-10 pointer-events-none">
             <motion.img
               src={heroShoe}
-              alt="Soleil Shoe Dissection"
+              alt="SN Enterprises Shoe Dissection"
               style={{ scale: shoeScale, rotate: shoeRotation }}
               className="w-full h-auto object-contain drop-shadow-[0_30px_60px_rgba(35,18,11,0.12)]"
             />

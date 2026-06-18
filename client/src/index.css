@@ -14,7 +14,7 @@
 
 /* Custom base styles and scrollbar overrides */
 html {
-  scroll-behavior: initial;
+  scroll-behavior: smooth;
 }
 
 body {

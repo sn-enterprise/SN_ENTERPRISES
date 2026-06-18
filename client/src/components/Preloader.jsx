@@ -65,7 +65,7 @@ const Preloader = ({ onComplete }) => {
         >
           {/* Top branding */}
           <div className="flex justify-between items-center w-full font-serif text-xl tracking-wider opacity-60">
-            <span>SOLEIL</span>
+            <span>SN ENTERPRISES</span>
             <span>COLLECTION ©2026</span>
           </div>
 

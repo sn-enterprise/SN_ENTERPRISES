@@ -1,9 +1,21 @@
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { Eye, ShieldCheck, Heart } from 'lucide-react';
+import React, { useRef, useState, useEffect } from 'react';
+import { motion, useScroll, useTransform, useMotionValue } from 'framer-motion';
+import { Eye, ShieldCheck, Heart, ChevronLeft, ChevronRight } from 'lucide-react';
+
+import carousal1 from '../assets/carousal_1.png';
+import carousal2 from '../assets/carousal_2.png';
+import carousal3 from '../assets/carousal_3.png';
 
 const Philosophy = () => {
   const containerRef = useRef(null);
+  const carouselRef = useRef(null);
+  const [carouselWidth, setCarouselWidth] = useState(0);
+
+  useEffect(() => {
+    if (carouselRef.current) {
+      setCarouselWidth(carouselRef.current.scrollWidth - carouselRef.current.offsetWidth);
+    }
+  }, []);
 
   // Parallax on decorative boxes
   const { scrollYProgress } = useScroll({
@@ -14,7 +26,7 @@ const Philosophy = () => {
   const box1Y = useTransform(scrollYProgress, [0, 1], ["20%", "-20%"]);
   const box2Y = useTransform(scrollYProgress, [0, 1], ["20%", "-20%"]);
 
-  const rawText = "We believe in the luxury of patience. Every pair of Soleil footwear is built using generational techniques by artisans in Naples, Italy. We select only the highest grade full-grain leathers, naturally tanned over months. By merging anatomical comfort with avant-garde editorial design, we create a silhouette that stands independent of fleeting trends. It is not just footwear; it is a permanent piece of wearable architecture.";
+  const rawText = "We believe in the luxury of patience. Every pair of SN Enterprises footwear is built using generational techniques by artisans in Kolkata, West Bengal. We select only the highest grade full-grain leathers, naturally tanned over months. By merging anatomical comfort with avant-garde editorial design, we create a silhouette that stands independent of fleeting trends. It is not just footwear; it is a permanent piece of wearable architecture.";
   const wordsArray = rawText.split(' ');
 
   // Word reveal animation variants
@@ -52,18 +64,29 @@ const Philosophy = () => {
     }
   };
 
+  const lookbookImages = [carousal1, carousal2, carousal3];
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % lookbookImages.length);
+  };
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => (prev - 1 + lookbookImages.length) % lookbookImages.length);
+  };
+
   return (
     <section
       id="philosophy"
       ref={containerRef}
-      className="relative w-full py-24 md:py-32 px-6 md:px-12 bg-brand-beige-light overflow-hidden select-none border-t border-brand-camel/20"
+      className="relative w-full py-24 md:py-32 bg-brand-beige-light overflow-hidden select-none border-t border-brand-camel/20"
     >
       {/* Decorative Parallax geometric outline box */}
       <motion.div style={{ y: box1Y }} className="absolute right-10 top-1/4 w-[30vw] h-[30vw] border border-brand-camel/15 pointer-events-none rounded-full" />
       <motion.div style={{ y: box2Y }} className="absolute left-20 bottom-10 w-[20vw] h-[20vw] bg-[#EFEAE2]/40 pointer-events-none rounded-2xl rotate-45" />
 
       {/* Main Philosophy Content */}
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 relative z-10">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 relative z-10">
         
         {/* Left column: Sticky label */}
         <div className="lg:col-span-4 flex flex-col justify-start items-start gap-4 sticky top-24 self-start">
@@ -100,7 +123,7 @@ const Philosophy = () => {
       </div>
 
       {/* Philosophy Cards Showcase */}
-      <div className="max-w-7xl mx-auto mt-24 md:mt-32">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 mt-24 md:mt-32 relative z-10">
         <motion.div 
           variants={cardContainerVariants}
           initial="hidden"
@@ -147,6 +170,88 @@ const Philosophy = () => {
 
         </motion.div>
       </div>
+
+      {/* Signature Lookbook Carousel - Pedestal Layout */}
+      <div className="mt-32 max-w-7xl mx-auto px-6 md:px-12 relative z-10 flex flex-col items-center">
+        {/* Header */}
+        <h3 className="font-serif text-3xl md:text-5xl font-light text-brand-brown-dark text-center uppercase tracking-wide mb-12 md:mb-20">
+          Signature Comfort<br />Collection
+        </h3>
+
+        {/* The Pedestal Stage */}
+        <div className="w-full relative bg-[#d6d6d6] border border-brand-camel/10 shadow-inner flex flex-col items-center justify-end pb-8 pt-16 md:pt-24 px-4 min-h-[50vh] md:min-h-[60vh] overflow-hidden">
+          
+          {/* subtle noise/texture overlay for the concrete look */}
+          <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }} />
+
+          {/* Shoes Container */}
+          <div className="w-full max-w-5xl flex justify-center items-end gap-4 md:gap-8 mb-12 relative z-10">
+            <motion.div 
+              key={currentImageIndex}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              className="w-full md:w-2/3 aspect-4/3 md:aspect-video relative group flex items-end justify-center cursor-pointer"
+              onClick={nextImage}
+            >
+              {/* Simulated shadow beneath the shoe image */}
+              <div className="absolute bottom-[-10%] left-1/2 -translate-x-1/2 w-[80%] h-[20%] bg-black/20 blur-xl rounded-[100%] pointer-events-none group-hover:scale-110 transition-transform duration-700" />
+              
+              <img 
+                src={lookbookImages[currentImageIndex]} 
+                alt={`Signature Collection ${currentImageIndex + 1}`} 
+                className="w-full h-auto max-h-full object-contain relative z-10 group-hover:-translate-y-4 transition-transform duration-700 ease-out"
+              />
+            </motion.div>
+          </div>
+
+          {/* Embedded Text within the pedestal */}
+          <div className="relative z-10 text-center flex flex-col items-center gap-1">
+            <span className="font-serif text-lg md:text-xl text-brand-brown-dark font-medium tracking-widest uppercase">
+              TIMELESS ELEGANCE.
+            </span>
+            <span className="font-serif text-lg md:text-xl text-brand-brown-dark tracking-widest uppercase">
+              ALL STYLES <span className="font-bold">Rs. 120</span>
+            </span>
+          </div>
+
+          {/* Sparkle Icon */}
+          <div className="absolute bottom-6 right-6 md:bottom-10 md:right-10 text-brand-offwhite opacity-80">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0C12 6.627 17.373 12 24 12C17.373 12 12 17.373 12 24C12 17.373 6.627 12 0 12C6.627 12 12 6.627 12 0Z" />
+            </svg>
+          </div>
+        </div>
+
+        {/* Bottom Navigation */}
+        <div className="mt-8 flex flex-col items-center justify-center gap-4 text-brand-brown-dark/40">
+          <div className="text-xs font-mono tracking-widest text-brand-brown-dark">
+            0{currentImageIndex + 1} / 0{lookbookImages.length}
+          </div>
+          <div className="flex items-center gap-6">
+            <button onClick={prevImage} className="hover:text-brand-brown-dark transition-colors">
+              <ChevronLeft size={20} />
+            </button>
+            
+            <div className="flex items-center gap-3">
+              {lookbookImages.map((_, idx) => (
+                <span 
+                  key={idx}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    idx === currentImageIndex ? 'w-8 bg-brand-brown-dark' : 'w-2 bg-brand-brown-dark/20 cursor-pointer hover:bg-brand-brown-dark/40'
+                  }`}
+                  onClick={() => setCurrentImageIndex(idx)}
+                />
+              ))}
+            </div>
+
+            <button onClick={nextImage} className="hover:text-brand-brown-dark transition-colors">
+              <ChevronRight size={20} />
+            </button>
+          </div>
+        </div>
+      </div>
+      
     </section>
   );
 };

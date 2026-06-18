@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { X, Heart, Shield, RotateCcw, Truck } from 'lucide-react';
+import carousal1 from '../assets/carousal_1.png';
+import carousal2 from '../assets/carousal_2.png';
+import carousal3 from '../assets/carousal_3.png';
 import newarrival1 from '../assets/newarrival_1.png';
 import newarrival2 from '../assets/newarrival_2.png';
 import newarrival3 from '../assets/newarrival_3.png';
@@ -11,9 +14,9 @@ const ArrivalCard = ({ product, idx, onSelect, onAddToBag }) => {
       initial={{ y: 100, opacity: 0 }}
       whileInView={{ y: 0, opacity: 1 }}
       viewport={{ once: true, amount: 0.1 }}
-      transition={{ duration: 1.2, ease: "easeOut", delay: idx * 0.2 }}
+      transition={{ duration: 1.2, ease: "easeOut", delay: (idx % 3) * 0.2 }}
       className={`flex flex-col gap-6 group relative cursor-pointer ${
-        idx === 1 ? 'md:translate-y-12' : '' // Asymmetric column offset for parallax feeling
+        idx % 3 === 1 ? 'md:translate-y-12' : '' // Asymmetric column offset for parallax feeling
       }`}
       onClick={() => onSelect(product)}
       data-cursor-text="VIEW"
@@ -27,14 +30,10 @@ const ArrivalCard = ({ product, idx, onSelect, onAddToBag }) => {
         </span>
 
         {/* Shoe Image */}
-        <motion.img
+        <img
           src={product.image}
           alt={product.name}
-          initial={{ scale: 1.15, y: "-5%" }}
-          whileInView={{ scale: 1.0, y: "5%" }}
-          viewport={{ once: false, amount: "some" }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          className="absolute inset-0 w-full h-full object-contain p-6 transition-transform duration-700 group-hover:scale-105"
         />
 
         {/* Bottom Subtle Tint */}
@@ -78,8 +77,56 @@ const NewArrivals = ({ onAddToBag }) => {
 
   const products = [
     {
+      id: 'sig-1',
+      name: 'SN Enterprises Signature Derby',
+      category: 'Signature Collection',
+      price: '$480',
+      numericPrice: 480,
+      image: carousal1,
+      tag: 'Classic',
+      color: 'Midnight Black',
+      sizes: [40, 41, 42, 43, 44, 45],
+      details: {
+        specs: 'Formally sculpted, handwelted and refined. Our hallmark silhouette featuring vegetable-tanned lining.',
+        sizing: 'Fits true to size. If you are between sizes, we recommend selecting the smaller size.',
+        care: 'Spot clean linen with a damp cloth. Use premium leather conditioner on calfskin elements.'
+      }
+    },
+    {
+      id: 'sig-2',
+      name: 'SN Enterprises Sport Chic',
+      category: 'Signature Collection',
+      price: '$520',
+      numericPrice: 520,
+      image: carousal2,
+      tag: 'Best Seller',
+      color: 'Monochrome',
+      sizes: [41, 42, 43, 44, 45],
+      details: {
+        specs: 'Merging ergonomic athletic cushioning with bespoke full-grain calfskin exterior panels.',
+        sizing: 'Runs slightly large. We recommend ordering a half size down from your standard sneaker size.',
+        care: 'Treat with water-repellent suede spray before first wear. Clean with a brass suede brush.'
+      }
+    },
+    {
+      id: 'sig-3',
+      name: 'SN Enterprises Luxe Runner',
+      category: 'Signature Collection',
+      price: '$460',
+      numericPrice: 460,
+      image: carousal3,
+      tag: 'Essentials',
+      color: 'Earthy Brown',
+      sizes: [39, 40, 41, 42, 43, 44, 45],
+      details: {
+        specs: 'Inspired by retro running design. Built with premium camel suede and high-density sole support.',
+        sizing: 'Fits exactly true to size. Select your standard athletic shoe size.',
+        care: 'Wipe down with a clean, soft cloth. Protect from excessive exposure to rain and mud.'
+      }
+    },
+    {
       id: 'arr-1',
-      name: 'Soleil Oxford Linen',
+      name: 'SN Enterprises Oxford Linen',
       category: 'SS / 26 Collection',
       price: '$450',
       numericPrice: 450,
@@ -95,7 +142,7 @@ const NewArrivals = ({ onAddToBag }) => {
     },
     {
       id: 'arr-2',
-      name: 'Soleil Desert Boot',
+      name: 'SN Enterprises Desert Boot',
       category: 'SS / 26 Collection',
       price: '$580',
       numericPrice: 580,
@@ -111,7 +158,7 @@ const NewArrivals = ({ onAddToBag }) => {
     },
     {
       id: 'arr-3',
-      name: 'Soleil Monolith Sneaker',
+      name: 'SN Enterprises Monolith Sneaker',
       category: 'SS / 26 Collection',
       price: '$490',
       numericPrice: 490,
@@ -154,19 +201,19 @@ const NewArrivals = ({ onAddToBag }) => {
       >
         <div className="flex flex-col gap-4">
           <motion.span variants={headerVariants} className="text-xs md:text-sm tracking-[0.3em] text-brand-camel uppercase font-bold">
-            02 / SUMMER INCEPTION
+            02 / THE ARCHIVE
           </motion.span>
           <motion.h2 variants={headerVariants} className="font-serif text-4xl md:text-6xl font-light text-brand-brown-dark">
-            The New Arrivals
+            All Collections
           </motion.h2>
         </div>
         <motion.p variants={headerVariants} className="text-xs text-brand-brown-light font-semibold tracking-widest uppercase pb-2 border-b border-brand-brown-dark/10 max-w-xs leading-relaxed">
-          Stitching together contemporary geometry with natural Italian earthy textures.
+          The complete compendium of SN Enterprises craftsmanship.
         </motion.p>
       </motion.div>
 
       {/* Grid Container */}
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 relative z-10">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-y-16 md:gap-y-32 gap-x-10 relative z-10">
         {products.map((product, idx) => (
           <ArrivalCard 
             key={product.id} 
@@ -214,7 +261,7 @@ const NewArrivals = ({ onAddToBag }) => {
                 className="w-full max-w-[320px] h-auto object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.15)]"
               />
               <span className="absolute bottom-4 left-4 text-[10px] font-mono text-brand-brown-dark/40 uppercase tracking-widest">
-                SOLEIL MAISON D'ART / SS-26
+                SN ENTERPRISES MAISON D'ART / SS-26
               </span>
             </div>
 

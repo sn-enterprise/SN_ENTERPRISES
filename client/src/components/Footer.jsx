@@ -61,7 +61,7 @@ const Footer = () => {
         {/* Left Side: Brand Statement & Newsletter */}
         <div className="lg:col-span-6 flex flex-col gap-8">
           <div className="flex items-center gap-3">
-            <span className="text-brand-camel text-xl font-serif italic font-light">Soleil</span>
+            <span className="text-brand-camel text-xl font-serif italic font-light">SN Enterprises</span>
             <div className="h-px w-8 bg-brand-camel" />
             <span className="text-[10px] tracking-widest text-brand-camel font-bold uppercase">
               MAISON D'ART
@@ -101,7 +101,7 @@ const Footer = () => {
               <div className="py-4 border border-brand-camel/30 bg-[#2E1C0C]/50 px-6 rounded text-left">
                 <span className="block font-serif text-brand-camel text-lg italic mb-1">Grazie Mille.</span>
                 <p className="text-xs text-brand-offwhite opacity-90 tracking-wide">
-                  Welcome to Soleil. A confirmation email has been dispatched to your inbox.
+                  Welcome to SN Enterprises. A confirmation email has been dispatched to your inbox.
                 </p>
               </div>
             )}
@@ -163,13 +163,13 @@ const Footer = () => {
       {/* Large Brand Backdrop Serif Logo */}
       <div className="w-full border-t border-brand-offwhite/10 pt-16 mt-16 flex flex-col items-center">
         <h2 className="font-serif text-[18vw] leading-none font-bold text-[#2E1C0C] tracking-[0.2em] translate-y-3 pointer-events-none select-none text-center">
-          SOLEIL
+          SN ENTERPRISES
         </h2>
       </div>
 
       {/* Footer Bottom Row */}
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 mt-8 relative z-10 border-t border-brand-offwhite/10 pt-8 text-xs text-brand-beige/60">
-        <span>©2026 SOLEIL IND. ALL RIGHTS RESERVED.</span>
+        <span>©2026 SN ENTERPRISES IND. ALL RIGHTS RESERVED.</span>
         
         {/* Social Icons */}
         <div className="flex gap-6 text-brand-offwhite/80">

@@ -1,8 +1,8 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import carousal1 from '../assets/carousal_1.png';
-import carousal2 from '../assets/carousal_2.png';
-import carousal3 from '../assets/carousal_3.png';
+import newarrival1 from '../assets/newarrival_1.png';
+import newarrival2 from '../assets/newarrival_2.png';
+import newarrival3 from '../assets/newarrival_3.png';
 
 const ProductCarousel = ({ onSelectProduct }) => {
   const containerRef = useRef(null);
@@ -16,31 +16,58 @@ const ProductCarousel = ({ onSelectProduct }) => {
 
   const slides = [
     {
-      id: 'slide-1',
-      title: 'Soleil Signature Derby',
-      subtitle: 'The Classic Reinvented',
-      image: carousal1,
+      id: 'arr-1',
+      title: 'SN Enterprises Oxford Linen',
+      subtitle: 'New Edition',
+      image: newarrival1,
       number: '01',
-      desc: 'Formally sculpted, handwelted and refined. Our hallmark silhouette featuring vegetable-tanned lining.',
-      price: '$480',
+      desc: 'Handcrafted Oxford dress shoe featuring a premium blended linen upper, full-grain Italian calfskin heel panel, and double-stitched leather outsole.',
+      price: '$450',
+      numericPrice: 450,
+      category: 'SS / 26 Collection',
+      color: 'Sand Beige',
+      sizes: [40, 41, 42, 43, 44, 45],
+      details: {
+        specs: 'Handcrafted Oxford dress shoe featuring a premium blended linen upper, full-grain Italian calfskin heel panel, and double-stitched leather outsole.',
+        sizing: 'Fits true to size. If you are between sizes, we recommend selecting the smaller size.',
+        care: 'Spot clean linen with a damp cloth. Use premium leather conditioner on calfskin elements.'
+      }
     },
     {
-      id: 'slide-2',
-      title: 'Soleil Sport Chic',
-      subtitle: 'Effortless Mobility',
-      image: carousal2,
+      id: 'arr-2',
+      title: 'SN Enterprises Desert Boot',
+      subtitle: 'Artisanal',
+      image: newarrival2,
       number: '02',
-      desc: 'Merging ergonomic athletic cushioning with bespoke full-grain calfskin exterior panels.',
-      price: '$520',
+      desc: 'High-profile luxury desert boot in premium split-suede leather. Features flexible Norwegian storm welt stitching and lightweight shock-absorbing crepe sole.',
+      price: '$580',
+      numericPrice: 580,
+      category: 'SS / 26 Collection',
+      color: 'Camel Brown',
+      sizes: [41, 42, 43, 44, 45],
+      details: {
+        specs: 'High-profile luxury desert boot in premium split-suede leather. Features flexible Norwegian storm welt stitching and lightweight shock-absorbing crepe sole.',
+        sizing: 'Runs slightly large. We recommend ordering a half size down from your standard sneaker size.',
+        care: 'Treat with water-repellent suede spray before first wear. Clean with a brass suede brush.'
+      }
     },
     {
-      id: 'slide-3',
-      title: 'Soleil Luxe Runner',
-      subtitle: 'Sculpted Silhouette',
-      image: carousal3,
+      id: 'arr-3',
+      title: 'SN Enterprises Monolith Sneaker',
+      subtitle: 'Limited Release',
+      image: newarrival3,
       number: '03',
-      desc: 'Inspired by retro running design. Built with premium camel suede and high-density sole support.',
-      price: '$460',
+      desc: 'Minimalist statement sneaker. Sculpted with a micro-perforated upper, natural cork insoles, and robust vulcanized organic rubber outsole.',
+      price: '$490',
+      numericPrice: 490,
+      category: 'SS / 26 Collection',
+      color: 'Off-White Cream',
+      sizes: [39, 40, 41, 42, 43, 44, 45],
+      details: {
+        specs: 'Minimalist statement sneaker. Sculpted with a micro-perforated upper, natural cork insoles, and robust vulcanized organic rubber outsole.',
+        sizing: 'Fits exactly true to size. Select your standard athletic shoe size.',
+        care: 'Wipe down with a clean, soft cloth. Protect from excessive exposure to rain and mud.'
+      }
     },
   ];
 
@@ -54,8 +81,6 @@ const ProductCarousel = ({ onSelectProduct }) => {
           
           {slides.map((slide, index) => {
             // Parallax image movement calculated based on index and scroll
-            // As scrollYProgress goes from 0 to 1, we map to move image slightly.
-            // Simplified parallax:
             const imgX = useTransform(scrollYProgress, [index / 3, (index + 1) / 3], ['-10%', '10%']);
 
             return (
@@ -74,7 +99,7 @@ const ProductCarousel = ({ onSelectProduct }) => {
                       <span className="font-serif text-brand-camel text-3xl font-light">{slide.number}</span>
                       <div className="h-px w-8 bg-brand-camel" />
                       <span className="text-[10px] tracking-[0.3em] text-brand-camel uppercase font-bold">
-                        {slide.subtitle}
+                        NEW ARRIVAL / {slide.subtitle}
                       </span>
                     </div>
                     <h2 className="font-serif text-4xl md:text-6xl font-light leading-tight">
@@ -98,21 +123,20 @@ const ProductCarousel = ({ onSelectProduct }) => {
                   {/* Large Image Frame with Inner Parallax */}
                   <div className="lg:col-span-7 h-[45vh] lg:h-[70vh] w-full flex items-center justify-center order-1 lg:order-2 overflow-hidden relative group">
                     {/* Asymmetric layout container */}
-                    <div className="w-full h-full max-w-[600px] aspect-4/5 overflow-hidden relative border border-brand-camel/10 bg-[#2E1C0C]">
+                    <div className="w-full h-full max-w-[600px] aspect-4/5 overflow-hidden relative border border-brand-camel/10 bg-brand-beige-light">
                       {/* Floating geometric overlay */}
-                      <div className="absolute top-6 left-6 text-xs text-brand-camel/40 font-mono tracking-widest uppercase z-20">
-                        SOLEIL MAISON D'ART / LOOKBOOK 26
+                      <div className="absolute top-6 left-6 text-xs text-brand-brown-dark/40 font-mono tracking-widest uppercase z-20">
+                        SN ENTERPRISES MAISON D'ART / NEW ARRIVAL
                       </div>
 
                       <motion.img
                         src={slide.image}
                         alt={slide.title}
-                        style={{ x: imgX }}
                         className="absolute inset-0 w-full h-full object-contain p-4 transition-transform duration-700 group-hover:scale-105"
                       />
                       
                       {/* Inner overlay gradient */}
-                      <div className="absolute inset-0 bg-linear-to-t from-brand-brown-dark/80 via-transparent to-transparent z-10" />
+                      <div className="absolute inset-0 bg-linear-to-t from-black/20 via-transparent to-transparent z-10" />
                     </div>
                   </div>
 

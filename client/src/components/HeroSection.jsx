@@ -153,7 +153,7 @@ const HeroSection = ({ onShopNowClick }) => {
             {/* The Shoe Image */}
             <motion.img
               src={heroShoe}
-              alt="Premium Soleil Sneaker"
+              alt="Premium SN Enterprises Sneaker"
               initial={{ scale: 0.7, rotate: -15, y: 100, opacity: 0 }}
               animate={{ scale: 1, rotate: -5, y: 0, opacity: 1 }}
               transition={{ duration: 1.8, delay: 0.5, type: 'spring', bounce: 0.4 }}
@@ -175,7 +175,7 @@ const HeroSection = ({ onShopNowClick }) => {
                 </defs>
                 <text fill="#23120B" className="text-[7.5px] uppercase font-bold tracking-[0.15em] font-sans">
                   <textPath xlinkHref="#circlePath">
-                    SOLEIL ARTISANAL • LUXURY LEATHER • 
+                    SN ENTERPRISES ARTISANAL • LUXURY LEATHER • 
                   </textPath>
                 </text>
               </svg>

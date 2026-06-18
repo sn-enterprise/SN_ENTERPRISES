@@ -223,7 +223,7 @@ function App() {
                       Shipping costs and tax calculated at checkout.
                     </p>
                     <button
-                      onClick={() => alert("Checkout initiated! Thank you for purchasing Soleil.")}
+                      onClick={() => alert("Checkout initiated! Thank you for purchasing SN Enterprises.")}
                       className="w-full py-4 bg-brand-brown-dark text-brand-offwhite font-semibold text-xs tracking-widest uppercase hover:bg-brand-camel hover:text-brand-brown-dark transition-colors text-center flex items-center justify-center gap-2"
                     >
                       PROCEED TO CHECKOUT <ArrowRight size={14} />

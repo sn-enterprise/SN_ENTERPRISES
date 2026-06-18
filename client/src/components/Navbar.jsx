@@ -93,11 +93,9 @@ const Navbar = ({ cartCount = 0, onCartClick, onSearchClick }) => {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 py-6 px-6 md:px-12 flex justify-between items-center ${
-          isScrolled
-            ? 'glass-panel shadow-sm border-b border-brand-camel/10 py-4!'
-            : 'bg-transparent'
-        }`}
+        className={`fixed top-0 left-0 w-full z-40 transition-all duration-500 px-6 md:px-12 flex justify-between items-center bg-brand-offwhite shadow-sm border-b border-brand-camel/10 ${
+          isScrolled ? 'py-4' : 'py-6'
+        } ${isMenuOpen ? 'opacity-0 pointer-events-none' : ''}`}
       >
         {/* Left Side: Brand Logo */}
         <a
@@ -105,7 +103,7 @@ const Navbar = ({ cartCount = 0, onCartClick, onSearchClick }) => {
           className="font-serif text-2xl md:text-3xl font-semibold tracking-[0.2em] text-brand-brown-dark transition-colors hover:text-brand-camel"
           data-cursor-hover
         >
-          SOLEIL
+          SN ENTERPRISES
         </a>
 
         {/* Center: Elegant Links (Hidden on tablet/mobile) */}
@@ -150,7 +148,7 @@ const Navbar = ({ cartCount = 0, onCartClick, onSearchClick }) => {
             className="p-2 text-brand-brown-dark hover:text-brand-camel transition-colors relative z-50 rounded-full"
             aria-label="Toggle Navigation Menu"
           >
-            {isMenuOpen ? <X size={20} className="text-brand-offwhite" /> : <Menu size={20} />}
+            <Menu size={20} />
           </MagneticButton>
         </div>
       </header>
@@ -162,7 +160,7 @@ const Navbar = ({ cartCount = 0, onCartClick, onSearchClick }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, transition: { delay: 0.4 } }}
-            className="fixed inset-0 z-49 overflow-hidden pointer-events-auto"
+            className="fixed inset-0 z-50 overflow-hidden pointer-events-auto"
           >
             {/* Sliding background layer */}
             <motion.div
@@ -174,8 +172,17 @@ const Navbar = ({ cartCount = 0, onCartClick, onSearchClick }) => {
             >
               {/* Top of overlay */}
               <div className="flex justify-between items-center text-brand-offwhite/50 text-xs tracking-widest uppercase">
-                <span>Soleil Maison d'Art</span>
-                <span>Menu Catalog 2026</span>
+                <span>SN Enterprises Maison d'Art</span>
+                <div className="flex items-center gap-6">
+                  <span className="hidden sm:inline">Menu Catalog 2026</span>
+                  <MagneticButton
+                    onClick={toggleMenu}
+                    className="p-2 text-brand-offwhite hover:text-brand-camel transition-colors rounded-full"
+                    aria-label="Close Menu"
+                  >
+                    <X size={24} />
+                  </MagneticButton>
+                </div>
               </div>
 
               {/* Menu contents */}
@@ -194,7 +201,7 @@ const Navbar = ({ cartCount = 0, onCartClick, onSearchClick }) => {
                         variants={linkVariants}
                         href={link.href}
                         onClick={() => setIsMenuOpen(false)}
-                        className="font-serif text-4xl md:text-6xl lg:text-7xl text-brand-offwhite hover:text-brand-camel hover:italic inline-block transition-all duration-300 font-light hover:translate-x-4"
+                        className="font-serif text-4xl md:text-6xl lg:text-7xl text-brand-offwhite hover:text-brand-camel inline-block transition-all duration-300 font-light hover:translate-x-6 opacity-80 hover:opacity-100"
                       >
                         {link.name}
                       </motion.a>
@@ -237,7 +244,7 @@ const Navbar = ({ cartCount = 0, onCartClick, onSearchClick }) => {
                   <a href="#journal" className="hover:text-brand-camel transition-colors">JOURNAL</a>
                 </div>
                 <span className="menu-footer-item opacity-40">
-                  ©2026 SOLEIL IND. ALL RIGHTS RESERVED
+                  ©2026 SN ENTERPRISES IND. ALL RIGHTS RESERVED
                 </span>
               </motion.div>
             </motion.div>
