@@ -1,8 +1,8 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import newarrival1 from '../assets/newarrival_1.png';
-import newarrival2 from '../assets/newarrival_2.png';
-import newarrival3 from '../assets/newarrival_3.png';
+import newarrival4 from '../assets/newarrival_4.png';
+import newarrival5 from '../assets/newarrival_5.png';
+import newarrival6 from '../assets/newarrival_6.png';
 
 const ProductCarousel = ({ onSelectProduct }) => {
   const containerRef = useRef(null);
@@ -19,11 +19,11 @@ const ProductCarousel = ({ onSelectProduct }) => {
       id: 'arr-1',
       title: 'SN Enterprises Oxford Linen',
       subtitle: 'New Edition',
-      image: newarrival1,
+      image: newarrival4,
       number: '01',
       desc: 'Handcrafted Oxford dress shoe featuring a premium blended linen upper, full-grain Italian calfskin heel panel, and double-stitched leather outsole.',
-      price: '₹36,000',
-      numericPrice: 36000,
+      price: '₹120',
+      numericPrice: 120,
       category: 'SS / 26 Collection',
       color: 'Sand Beige',
       sizes: [40, 41, 42, 43, 44, 45],
@@ -37,11 +37,11 @@ const ProductCarousel = ({ onSelectProduct }) => {
       id: 'arr-2',
       title: 'SN Enterprises Desert Boot',
       subtitle: 'Artisanal',
-      image: newarrival2,
+      image: newarrival5,
       number: '02',
       desc: 'High-profile luxury desert boot in premium split-suede leather. Features flexible Norwegian storm welt stitching and lightweight shock-absorbing crepe sole.',
-      price: '₹46,400',
-      numericPrice: 46400,
+      price: '₹300',
+      numericPrice: 300,
       category: 'SS / 26 Collection',
       color: 'Camel Brown',
       sizes: [41, 42, 43, 44, 45],
@@ -55,11 +55,11 @@ const ProductCarousel = ({ onSelectProduct }) => {
       id: 'arr-3',
       title: 'SN Enterprises Monolith Sneaker',
       subtitle: 'Limited Release',
-      image: newarrival3,
+      image: newarrival6,
       number: '03',
       desc: 'Minimalist statement sneaker. Sculpted with a micro-perforated upper, natural cork insoles, and robust vulcanized organic rubber outsole.',
-      price: '₹39,200',
-      numericPrice: 39200,
+      price: '₹150',
+      numericPrice: 150,
       category: 'SS / 26 Collection',
       color: 'Off-White Cream',
       sizes: [39, 40, 41, 42, 43, 44, 45],

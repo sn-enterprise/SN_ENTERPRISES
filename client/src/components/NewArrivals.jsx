@@ -77,7 +77,6 @@ const NewArrivals = ({ onAddToBag }) => {
 
   const products = [
     {
-
       id: 'arr-1',
       name: 'SN Enterprises Oxford Linen',
       category: 'SS / 26 Collection',
@@ -172,7 +171,7 @@ const NewArrivals = ({ onAddToBag }) => {
         sizing: 'Fits exactly true to size.',
         care: 'Wipe down with a clean, damp cloth. Avoid harsh chemicals.'
       }
-    }
+    },
   ];
 
   const headerVariants = {

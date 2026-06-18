@@ -62,10 +62,6 @@ const Footer = () => {
         <div className="lg:col-span-6 flex flex-col gap-8">
           <div className="flex items-center gap-3">
             <span className="text-brand-camel text-xl font-serif italic font-light">SN Enterprises</span>
-            <div className="h-px w-8 bg-brand-camel" />
-            <span className="text-[10px] tracking-widest text-brand-camel font-bold uppercase">
-              MAISON D'ART
-            </span>
           </div>
 
           <h3 className="font-serif text-3xl md:text-4xl font-light text-brand-offwhite leading-snug">

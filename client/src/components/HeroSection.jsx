@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { ArrowDownRight, Compass } from 'lucide-react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import heroShoe from '../assets/hero_shoe.png';
+import logo from '../../public/logo.png';
 
 const HeroSection = ({ onShopNowClick }) => {
   const containerRef = useRef(null);
@@ -104,6 +105,15 @@ const HeroSection = ({ onShopNowClick }) => {
           animate="show"
           className="lg:col-span-5 flex flex-col justify-center items-start text-left gap-4 md:gap-6"
         >
+          <div className="overflow-hidden">
+            <motion.img
+              variants={revealVariant}
+              src={logo}
+              alt="SN Enterprises"
+              className="h-12 md:h-16 object-contain"
+            />
+          </div>
+
           <div className="overflow-hidden">
             <motion.span variants={revealVariant} className="inline-block text-xs md:text-sm tracking-[0.3em] text-brand-camel uppercase font-bold">
               HANDCRAFTED COLLECTION 2026
