@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { ArrowDownRight, Compass } from 'lucide-react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import heroShoe from '../assets/hero_shoe.png';
-import logo from '../../public/logo.png';
+
 
 const HeroSection = ({ onShopNowClick }) => {
   const containerRef = useRef(null);
@@ -106,12 +106,12 @@ const HeroSection = ({ onShopNowClick }) => {
           className="lg:col-span-5 flex flex-col justify-center items-start text-left gap-4 md:gap-6"
         >
           <div className="overflow-hidden">
-            <motion.img
+            <motion.span
               variants={revealVariant}
-              src={logo}
-              alt="SN Enterprises"
-              className="h-12 md:h-16 object-contain"
-            />
+              className="inline-block font-serif text-xl md:text-2xl tracking-[0.25em] text-brand-brown-dark font-semibold uppercase"
+            >
+              SN Enterprises
+            </motion.span>
           </div>
 
           <div className="overflow-hidden">

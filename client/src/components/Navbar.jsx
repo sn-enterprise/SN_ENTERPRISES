@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, ShoppingBag, Search, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
-import logo from '../../public/logo.png';
+
 
 // Magnetic Button Component for Navbar
 const MagneticButton = ({ children, onClick, className, "aria-label": ariaLabel }) => {
@@ -104,7 +104,7 @@ const Navbar = ({ cartCount = 0, onCartClick, onSearchClick }) => {
           className="flex items-center"
           data-cursor-hover
         >
-          <img src={logo} alt="SN Enterprises" className="h-8 md:h-10" />
+          <span className="font-serif text-lg md:text-xl tracking-widest text-brand-brown-dark font-semibold uppercase">SN Enterprises</span>
         </a>
 
         {/* Center: Elegant Links (Hidden on tablet/mobile) */}
