@@ -106,7 +106,7 @@ function App() {
               }
             }} />
             <Philosophy />
-            <ProductCarousel onSelectProduct={handleAddToBag} />
+            <ProductCarousel onAddToBag={handleAddToBag} />
             <NewArrivals onAddToBag={handleAddToBag} />
             <FeatureZoom />
           </main>
