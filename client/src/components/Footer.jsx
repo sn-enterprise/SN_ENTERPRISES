@@ -161,8 +161,8 @@ const Footer = () => {
       </div>
 
       {/* Large Brand Backdrop Serif Logo */}
-      <div className="w-full border-t border-brand-offwhite/10 pt-16 mt-16 flex flex-col items-center">
-        <h2 className="font-serif text-[18vw] leading-none font-bold text-[#2E1C0C] tracking-[0.2em] translate-y-3 pointer-events-none select-none text-center">
+      <div className="w-full border-t border-brand-offwhite/10 pt-16 mt-16 flex flex-col items-center overflow-hidden">
+        <h2 className="font-serif text-[13vw] sm:text-[11vw] md:text-[9vw] lg:text-[8vw] leading-none font-bold text-[#2E1C0C] tracking-widest translate-y-3 pointer-events-none select-none text-center whitespace-nowrap">
           SN ENTERPRISES
         </h2>
       </div>
@@ -186,8 +186,6 @@ const Footer = () => {
             <Compass size={16} />
           </a>
         </div>
-
-        <span>DESIGN & DEV BY ANTIGRAVITY</span>
       </div>
 
     </footer>

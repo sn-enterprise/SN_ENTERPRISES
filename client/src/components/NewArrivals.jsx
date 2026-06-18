@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { X, Heart, Shield, RotateCcw, Truck } from 'lucide-react';
-import carousal1 from '../assets/carousal_1.png';
-import carousal2 from '../assets/carousal_2.png';
-import carousal3 from '../assets/carousal_3.png';
 import newarrival1 from '../assets/newarrival_1.png';
 import newarrival2 from '../assets/newarrival_2.png';
 import newarrival3 from '../assets/newarrival_3.png';
+import newarrival4 from '../assets/newarrival_4.png';
+import newarrival5 from '../assets/newarrival_5.png';
+import newarrival6 from '../assets/newarrival_6.png';
 
 const ArrivalCard = ({ product, idx, onSelect, onAddToBag }) => {
   return (
@@ -77,59 +77,12 @@ const NewArrivals = ({ onAddToBag }) => {
 
   const products = [
     {
-      id: 'sig-1',
-      name: 'SN Enterprises Signature Derby',
-      category: 'Signature Collection',
-      price: '$480',
-      numericPrice: 480,
-      image: carousal1,
-      tag: 'Classic',
-      color: 'Midnight Black',
-      sizes: [40, 41, 42, 43, 44, 45],
-      details: {
-        specs: 'Formally sculpted, handwelted and refined. Our hallmark silhouette featuring vegetable-tanned lining.',
-        sizing: 'Fits true to size. If you are between sizes, we recommend selecting the smaller size.',
-        care: 'Spot clean linen with a damp cloth. Use premium leather conditioner on calfskin elements.'
-      }
-    },
-    {
-      id: 'sig-2',
-      name: 'SN Enterprises Sport Chic',
-      category: 'Signature Collection',
-      price: '$520',
-      numericPrice: 520,
-      image: carousal2,
-      tag: 'Best Seller',
-      color: 'Monochrome',
-      sizes: [41, 42, 43, 44, 45],
-      details: {
-        specs: 'Merging ergonomic athletic cushioning with bespoke full-grain calfskin exterior panels.',
-        sizing: 'Runs slightly large. We recommend ordering a half size down from your standard sneaker size.',
-        care: 'Treat with water-repellent suede spray before first wear. Clean with a brass suede brush.'
-      }
-    },
-    {
-      id: 'sig-3',
-      name: 'SN Enterprises Luxe Runner',
-      category: 'Signature Collection',
-      price: '$460',
-      numericPrice: 460,
-      image: carousal3,
-      tag: 'Essentials',
-      color: 'Earthy Brown',
-      sizes: [39, 40, 41, 42, 43, 44, 45],
-      details: {
-        specs: 'Inspired by retro running design. Built with premium camel suede and high-density sole support.',
-        sizing: 'Fits exactly true to size. Select your standard athletic shoe size.',
-        care: 'Wipe down with a clean, soft cloth. Protect from excessive exposure to rain and mud.'
-      }
-    },
-    {
+
       id: 'arr-1',
       name: 'SN Enterprises Oxford Linen',
       category: 'SS / 26 Collection',
-      price: '$450',
-      numericPrice: 450,
+      price: '₹36,000',
+      numericPrice: 36000,
       image: newarrival1,
       tag: 'New Edition',
       color: 'Sand Beige',
@@ -144,8 +97,8 @@ const NewArrivals = ({ onAddToBag }) => {
       id: 'arr-2',
       name: 'SN Enterprises Desert Boot',
       category: 'SS / 26 Collection',
-      price: '$580',
-      numericPrice: 580,
+      price: '₹46,400',
+      numericPrice: 46400,
       image: newarrival2,
       tag: 'Artisanal',
       color: 'Camel Brown',
@@ -160,8 +113,8 @@ const NewArrivals = ({ onAddToBag }) => {
       id: 'arr-3',
       name: 'SN Enterprises Monolith Sneaker',
       category: 'SS / 26 Collection',
-      price: '$490',
-      numericPrice: 490,
+      price: '₹39,200',
+      numericPrice: 39200,
       image: newarrival3,
       tag: 'Limited Release',
       color: 'Off-White Cream',
@@ -170,6 +123,54 @@ const NewArrivals = ({ onAddToBag }) => {
         specs: 'Minimalist statement sneaker. Sculpted with a micro-perforated upper, natural cork insoles, and robust vulcanized organic rubber outsole.',
         sizing: 'Fits exactly true to size. Select your standard athletic shoe size.',
         care: 'Wipe down with a clean, soft cloth. Protect from excessive exposure to rain and mud.'
+      }
+    },
+    {
+      id: 'arr-4',
+      name: 'SN Enterprises Aurora Loafer',
+      category: 'SS / 26 Collection',
+      price: '₹33,600',
+      numericPrice: 33600,
+      image: newarrival4,
+      tag: 'New Edition',
+      color: 'Warm Beige',
+      sizes: [40, 41, 42, 43, 44],
+      details: {
+        specs: 'Minimalist leather loafer handcrafted in Italy. Features a sleek design with premium stitching and a comfortable leather sole.',
+        sizing: 'Fits true to size.',
+        care: 'Use a soft brush and premium leather conditioner.'
+      }
+    },
+    {
+      id: 'arr-5',
+      name: 'SN Enterprises Suede Chelsea',
+      category: 'SS / 26 Collection',
+      price: '₹44,000',
+      numericPrice: 44000,
+      image: newarrival5,
+      tag: 'Artisanal',
+      color: 'Taupe',
+      sizes: [41, 42, 43, 44, 45],
+      details: {
+        specs: 'High-end designer Chelsea boot in premium suede. Features elastic side panels and a durable stacked heel.',
+        sizing: 'Runs slightly narrow. We recommend sizing up if you have wide feet.',
+        care: 'Use a suede eraser and brush to remove dirt. Protect with suede spray.'
+      }
+    },
+    {
+      id: 'arr-6',
+      name: 'SN Enterprises Chunky Sneaker',
+      category: 'SS / 26 Collection',
+      price: '₹40,800',
+      numericPrice: 40800,
+      image: newarrival6,
+      tag: 'Statement',
+      color: 'Off-White',
+      sizes: [39, 40, 41, 42, 43, 44],
+      details: {
+        specs: 'Modern luxury chunky sneaker made from premium materials. Off-white colorway with high fashion aesthetic and chunky outsole.',
+        sizing: 'Fits exactly true to size.',
+        care: 'Wipe down with a clean, damp cloth. Avoid harsh chemicals.'
       }
     }
   ];
