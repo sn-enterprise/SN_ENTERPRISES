@@ -67,9 +67,9 @@ const Navbar = ({ cartCount = 0, onCartClick, onSearchClick }) => {
   const navLinks = [
     { name: 'Home', href: '#home' },
     { name: 'Philosophy', href: '#philosophy' },
-    { name: 'Lookbook', href: '#lookbook' },
+    { name: 'New Arrivals', href: '#lookbook' },
     { name: 'Collection', href: '#collection' },
-    { name: 'Craftsmanship', href: '#craftsmanship' },
+    { name: 'Contact', href: '#contact' },
   ];
 
   const menuVariants = {

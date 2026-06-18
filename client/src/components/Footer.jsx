@@ -51,7 +51,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="relative w-full bg-brand-brown-dark text-brand-offwhite pt-24 pb-12 px-6 md:px-12 overflow-hidden border-t border-brand-camel/10 select-none">
+    <footer id="contact" className="relative w-full bg-brand-brown-dark text-brand-offwhite pt-24 pb-12 px-6 md:px-12 overflow-hidden border-t border-brand-camel/10 select-none">
       
       {/* Decorative Grid overlay */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--color-brand-camel)_1px,transparent_1px)] bg-size-[12vw] opacity-[0.03] pointer-events-none" />
