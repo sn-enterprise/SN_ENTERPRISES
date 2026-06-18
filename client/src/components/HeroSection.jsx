@@ -103,16 +103,8 @@ const HeroSection = ({ onShopNowClick }) => {
           variants={staggerContainer}
           initial="hidden"
           animate="show"
-          className="lg:col-span-5 flex flex-col justify-center items-start text-left gap-4 md:gap-6"
+          className="lg:col-span-5 flex flex-col justify-center items-start text-left gap-4 md:gap-6 -mt-4"
         >
-          <div className="overflow-hidden">
-            <motion.span
-              variants={revealVariant}
-              className="inline-block font-serif text-xl md:text-2xl tracking-[0.25em] text-brand-brown-dark font-semibold uppercase"
-            >
-              SN Enterprises
-            </motion.span>
-          </div>
 
           <div className="overflow-hidden">
             <motion.span variants={revealVariant} className="inline-block text-xs md:text-sm tracking-[0.3em] text-brand-camel uppercase font-bold">
