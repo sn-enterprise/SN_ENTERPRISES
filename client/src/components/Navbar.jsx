@@ -172,7 +172,7 @@ const Navbar = ({ cartCount = 0, onCartClick, onSearchClick }) => {
             >
               {/* Top of overlay */}
               <div className="flex justify-between items-center text-brand-offwhite/50 text-xs tracking-widest uppercase">
-                <span>SN Enterprises Maison d'Art</span>
+                <span>SN Enterprises</span>
                 <div className="flex items-center gap-6">
                   <span className="hidden sm:inline">Menu Catalog 2026</span>
                   <MagneticButton
@@ -219,7 +219,7 @@ const Navbar = ({ cartCount = 0, onCartClick, onSearchClick }) => {
                     Season Highlight
                   </span>
                   <p className="font-serif text-xl italic text-brand-beige font-light leading-relaxed">
-                    "Fine Italian full-grain leather, handwelted in Naples. Made for the design purist."
+                    "Premium full-grain leather, handwelted in Kolkata. Made for the design purist."
                   </p>
                   <a
                     href="#collection"

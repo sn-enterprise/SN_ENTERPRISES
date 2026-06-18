@@ -179,46 +179,35 @@ const Philosophy = () => {
         </h3>
 
         {/* The Pedestal Stage */}
-        <div className="w-full relative bg-[#d6d6d6] border border-brand-camel/10 shadow-inner flex flex-col items-center justify-end pb-8 pt-16 md:pt-24 px-4 min-h-[50vh] md:min-h-[60vh] overflow-hidden">
+        <div className="w-full relative bg-[#d6d6d6] border border-brand-camel/10 shadow-inner min-h-[50vh] md:min-h-[60vh] overflow-hidden">
           
           {/* subtle noise/texture overlay for the concrete look */}
-          <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }} />
+          <div className="absolute inset-0 opacity-[0.03] pointer-events-none z-10" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }} />
 
           {/* Shoes Container */}
-          <div className="w-full max-w-5xl flex justify-center items-end gap-4 md:gap-8 mb-12 relative z-10">
+          <div className="absolute inset-0 w-full h-full z-0">
             <motion.div 
               key={currentImageIndex}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
-              className="w-full md:w-2/3 aspect-4/3 md:aspect-video relative group flex items-end justify-center cursor-pointer"
+              className="w-full h-full relative group cursor-pointer"
               onClick={nextImage}
             >
-              {/* Simulated shadow beneath the shoe image */}
-              <div className="absolute bottom-[-10%] left-1/2 -translate-x-1/2 w-[80%] h-[20%] bg-black/20 blur-xl rounded-[100%] pointer-events-none group-hover:scale-110 transition-transform duration-700" />
-              
               <img 
                 src={lookbookImages[currentImageIndex]} 
                 alt={`Signature Collection ${currentImageIndex + 1}`} 
-                className="w-full h-auto max-h-full object-contain relative z-10 group-hover:-translate-y-4 transition-transform duration-700 ease-out"
+                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
               />
             </motion.div>
           </div>
 
-          {/* Embedded Text within the pedestal */}
-          <div className="relative z-10 text-center flex flex-col items-center gap-1">
-            <span className="font-serif text-lg md:text-xl text-brand-brown-dark font-medium tracking-widest uppercase">
-              TIMELESS ELEGANCE.
-            </span>
-            <span className="font-serif text-lg md:text-xl text-brand-brown-dark tracking-widest uppercase">
-              ALL STYLES <span className="font-bold">Rs. 120</span>
-            </span>
-          </div>
+
 
           {/* Sparkle Icon */}
-          <div className="absolute bottom-6 right-6 md:bottom-10 md:right-10 text-brand-offwhite opacity-80">
+          <div className="absolute bottom-6 right-6 md:bottom-10 md:right-10 text-brand-offwhite opacity-80 z-20 pointer-events-none">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 0C12 6.627 17.373 12 24 12C17.373 12 12 17.373 12 24C12 17.373 6.627 12 0 12C6.627 12 12 6.627 12 0Z" />
+              <path d="M12 0C12 6.627 17.373 12 24 12C17.373 12 12 17.373 6.627 12 0 12C6.627 12 12 6.627 12 0Z" />
             </svg>
           </div>
         </div>
