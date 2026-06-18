@@ -1,106 +1,52 @@
-import React, { useEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
+import React, { useEffect, useState } from 'react';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
 
 const CustomCursor = () => {
-  const dotRef = useRef(null);
-  const ringRef = useRef(null);
   const [cursorText, setCursorText] = useState('');
   const [isVisible, setIsVisible] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
+
+  const cursorX = useMotionValue(-100);
+  const cursorY = useMotionValue(-100);
+  
+  const springConfigDot = { damping: 25, stiffness: 400, mass: 0.5 };
+  const dotX = useSpring(cursorX, springConfigDot);
+  const dotY = useSpring(cursorY, springConfigDot);
+
+  const springConfigRing = { damping: 30, stiffness: 200, mass: 0.8 };
+  const ringX = useSpring(cursorX, springConfigRing);
+  const ringY = useSpring(cursorY, springConfigRing);
 
   useEffect(() => {
-    // Disable custom cursor on touch devices
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     if (isTouchDevice) return;
 
-    // Enable class on body to remove default cursor
     document.body.classList.add('custom-cursor-active');
 
-    const dot = dotRef.current;
-    const ring = ringRef.current;
-
-    // Set initial position out of view
-    gsap.set(dot, { xPercent: -50, yPercent: -50, scale: 0 });
-    gsap.set(ring, { xPercent: -50, yPercent: -50, scale: 0 });
-
-    // GSAP quickTo for smooth lagging follow effect
-    const xDotTo = gsap.quickTo(dot, 'x', { duration: 0.1, ease: 'power3' });
-    const yDotTo = gsap.quickTo(dot, 'y', { duration: 0.1, ease: 'power3' });
-    
-    const xRingTo = gsap.quickTo(ring, 'x', { duration: 0.4, ease: 'power3' });
-    const yRingTo = gsap.quickTo(ring, 'y', { duration: 0.4, ease: 'power3' });
-
     const handleMouseMove = (e) => {
-      if (!isVisible) {
-        setIsVisible(true);
-        gsap.to([dot, ring], { scale: 1, opacity: 1, duration: 0.3 });
-      }
-
-      xDotTo(e.clientX);
-      yDotTo(e.clientY);
-      xRingTo(e.clientX);
-      yRingTo(e.clientY);
+      if (!isVisible) setIsVisible(true);
+      cursorX.set(e.clientX);
+      cursorY.set(e.clientY);
     };
 
     const handleMouseLeave = () => {
       setIsVisible(false);
-      gsap.to([dot, ring], { scale: 0, opacity: 0, duration: 0.3 });
     };
 
     window.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseleave', handleMouseLeave);
 
-    // Event listener for hover effects
     const onMouseEnterLink = (e) => {
-      const target = e.currentTarget;
-      const text = target.getAttribute('data-cursor-text');
-      
+      const text = e.currentTarget.getAttribute('data-cursor-text');
+      setIsHovering(true);
       if (text) {
         setCursorText(text);
-        gsap.to(ring, {
-          width: 80,
-          height: 80,
-          backgroundColor: 'rgba(35, 18, 11, 0.9)',
-          borderColor: 'transparent',
-          duration: 0.3,
-          ease: 'power3.out'
-        });
-        gsap.to(dot, { scale: 0, duration: 0.2 });
-      } else {
-        gsap.to(ring, {
-          scale: 1.5,
-          borderColor: '#FAF9F6',
-          backgroundColor: '#C5A880',
-          opacity: 0.9,
-          mixBlendMode: 'difference',
-          duration: 0.3,
-          ease: 'power3.out'
-        });
-        gsap.to(dot, {
-          scale: 0.5,
-          backgroundColor: '#FAF9F6',
-          duration: 0.3
-        });
       }
     };
 
     const onMouseLeaveLink = () => {
+      setIsHovering(false);
       setCursorText('');
-      gsap.to(ring, {
-        width: 40,
-        height: 40,
-        scale: 1,
-        backgroundColor: 'transparent',
-        borderColor: '#C5A880',
-        mixBlendMode: 'normal',
-        opacity: 1,
-        duration: 0.3,
-        ease: 'power3.out'
-      });
-      gsap.to(dot, {
-        scale: 1,
-        backgroundColor: '#23120B',
-        duration: 0.3
-      });
     };
 
     const attachHoverEvents = () => {
@@ -113,10 +59,8 @@ const CustomCursor = () => {
       });
     };
 
-    // Attach initial events
     attachHoverEvents();
 
-    // Use MutationObserver to watch for new DOM elements that can be hovered
     const observer = new MutationObserver(attachHoverEvents);
     observer.observe(document.body, { childList: true, subtree: true });
 
@@ -126,28 +70,93 @@ const CustomCursor = () => {
       observer.disconnect();
       document.body.classList.remove('custom-cursor-active');
     };
-  }, [isVisible]);
+  }, [isVisible, cursorX, cursorY]);
+
+  const ringVariants = {
+    default: {
+      width: 40,
+      height: 40,
+      backgroundColor: 'transparent',
+      borderColor: '#C5A880',
+      mixBlendMode: 'normal',
+      opacity: isVisible ? 1 : 0,
+      x: "-50%",
+      y: "-50%"
+    },
+    textHover: {
+      width: 80,
+      height: 80,
+      backgroundColor: 'rgba(35, 18, 11, 0.9)',
+      borderColor: 'transparent',
+      mixBlendMode: 'normal',
+      opacity: isVisible ? 1 : 0,
+      x: "-50%",
+      y: "-50%"
+    },
+    hover: {
+      width: 60,
+      height: 60,
+      backgroundColor: '#C5A880',
+      borderColor: '#FAF9F6',
+      mixBlendMode: 'difference',
+      opacity: isVisible ? 0.9 : 0,
+      x: "-50%",
+      y: "-50%"
+    }
+  };
+
+  const dotVariants = {
+    default: {
+      scale: 1,
+      backgroundColor: '#23120B',
+      opacity: isVisible ? 1 : 0,
+      x: "-50%",
+      y: "-50%"
+    },
+    textHover: {
+      scale: 0,
+      opacity: 0,
+      x: "-50%",
+      y: "-50%"
+    },
+    hover: {
+      scale: 0.5,
+      backgroundColor: '#FAF9F6',
+      opacity: isVisible ? 1 : 0,
+      x: "-50%",
+      y: "-50%"
+    }
+  };
+
+  let currentVariant = 'default';
+  if (cursorText) {
+    currentVariant = 'textHover';
+  } else if (isHovering) {
+    currentVariant = 'hover';
+  }
 
   return (
     <>
-      {/* Tiny solid dot */}
-      <div
-        ref={dotRef}
-        className="custom-cursor hidden lg:block"
-        style={{ opacity: 0 }}
+      <motion.div
+        className="custom-cursor hidden lg:block fixed top-0 left-0 pointer-events-none z-9999"
+        style={{ left: dotX, top: dotY }}
+        variants={dotVariants}
+        animate={currentVariant}
+        transition={{ type: "tween", duration: 0.2 }}
       />
-      {/* Outer tracking ring */}
-      <div
-        ref={ringRef}
-        className="custom-cursor-ring hidden lg:flex items-center justify-center text-center overflow-hidden"
-        style={{ opacity: 0 }}
+      <motion.div
+        className="custom-cursor-ring hidden lg:flex fixed top-0 left-0 items-center justify-center text-center overflow-hidden pointer-events-none z-9999"
+        style={{ left: ringX, top: ringY }}
+        variants={ringVariants}
+        animate={currentVariant}
+        transition={{ type: "tween", duration: 0.3 }}
       >
         {cursorText && (
           <span className="text-brand-offwhite text-[10px] uppercase font-semibold font-sans tracking-widest scale-90">
             {cursorText}
           </span>
         )}
-      </div>
+      </motion.div>
     </>
   );
 };

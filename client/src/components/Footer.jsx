@@ -1,6 +1,43 @@
 import React, { useState } from 'react';
 import { ArrowRight, Instagram, Youtube, Twitter, Compass } from 'lucide-react';
-import gsap from 'gsap';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
+
+const MagneticButton = ({ children, onClick, className, type, "aria-label": ariaLabel }) => {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const springConfig = { stiffness: 150, damping: 15, mass: 0.1 };
+  const smoothX = useSpring(x, springConfig);
+  const smoothY = useSpring(y, springConfig);
+
+  const handleMouseMove = (e) => {
+    const { clientX, clientY } = e;
+    const { height, width, left, top } = e.currentTarget.getBoundingClientRect();
+    const middleX = clientX - (left + width / 2);
+    const middleY = clientY - (top + height / 2);
+    x.set(middleX * 0.4);
+    y.set(middleY * 0.4);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.button
+      style={{ x: smoothX, y: smoothY }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      onClick={onClick}
+      type={type}
+      className={className}
+      aria-label={ariaLabel}
+    >
+      {children}
+    </motion.button>
+  );
+};
 
 const Footer = () => {
   const [email, setEmail] = useState('');
@@ -11,28 +48,6 @@ const Footer = () => {
     if (!email) return;
     setIsSubmitted(true);
     setEmail('');
-  };
-
-  const handleMagneticMove = (e) => {
-    const target = e.currentTarget;
-    const rect = target.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    gsap.to(target, {
-      x: x * 0.4,
-      y: y * 0.4,
-      duration: 0.3,
-      ease: 'power2.out',
-    });
-  };
-
-  const handleMagneticLeave = (e) => {
-    gsap.to(e.currentTarget, {
-      x: 0,
-      y: 0,
-      duration: 0.5,
-      ease: 'elastic.out(1, 0.3)',
-    });
   };
 
   return (
@@ -70,15 +85,13 @@ const Footer = () => {
                     className="w-full bg-transparent border-none outline-none text-xs font-semibold tracking-widest text-brand-offwhite placeholder-brand-beige/40 focus:ring-0"
                     required
                   />
-                  <button
+                  <MagneticButton
                     type="submit"
                     className="p-2 text-brand-camel hover:text-brand-offwhite transition-colors rounded-full"
-                    onMouseMove={handleMagneticMove}
-                    onMouseLeave={handleMagneticLeave}
                     aria-label="Subscribe"
                   >
                     <ArrowRight size={18} />
-                  </button>
+                  </MagneticButton>
                 </div>
                 <p className="text-[10px] text-brand-beige/40 uppercase tracking-widest mt-1">
                   By subscribing, you agree to our Privacy Policy.

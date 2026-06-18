@@ -1,73 +1,80 @@
-import React, { useRef, useState } from 'react';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { X, Heart, Shield, RotateCcw, Truck } from 'lucide-react';
 import newarrival1 from '../assets/newarrival_1.png';
 import newarrival2 from '../assets/newarrival_2.png';
 import newarrival3 from '../assets/newarrival_3.png';
 
-gsap.registerPlugin(ScrollTrigger);
+const ArrivalCard = ({ product, idx, onSelect, onAddToBag }) => {
+  return (
+    <motion.div
+      initial={{ y: 100, opacity: 0 }}
+      whileInView={{ y: 0, opacity: 1 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 1.2, ease: "easeOut", delay: idx * 0.2 }}
+      className={`flex flex-col gap-6 group relative cursor-pointer ${
+        idx === 1 ? 'md:translate-y-12' : '' // Asymmetric column offset for parallax feeling
+      }`}
+      onClick={() => onSelect(product)}
+      data-cursor-text="VIEW"
+    >
+      {/* Image Outer Wrapper */}
+      <div className="arrival-image-container w-full aspect-4/5 overflow-hidden bg-brand-beige-light border border-brand-camel/15 relative">
+        
+        {/* Product Badge */}
+        <span className="absolute top-4 left-4 z-20 px-3 py-1.5 bg-brand-brown-dark text-brand-offwhite text-[9px] font-bold tracking-widest uppercase">
+          {product.tag}
+        </span>
+
+        {/* Shoe Image */}
+        <motion.img
+          src={product.image}
+          alt={product.name}
+          initial={{ scale: 1.15, y: "-5%" }}
+          whileInView={{ scale: 1.0, y: "5%" }}
+          viewport={{ once: false, amount: "some" }}
+          transition={{ duration: 1.5, ease: "easeOut" }}
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+
+        {/* Bottom Subtle Tint */}
+        <div className="absolute inset-0 bg-linear-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
+
+        {/* Hover quick add overlay */}
+        <div className="absolute bottom-6 left-6 right-6 z-20 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onAddToBag(product);
+            }}
+            className="w-full py-3 bg-brand-offwhite hover:bg-brand-brown-dark text-brand-brown-dark hover:text-brand-offwhite font-semibold text-xs tracking-widest uppercase shadow transition-all duration-300"
+          >
+            Quick Add
+          </button>
+        </div>
+      </div>
+
+      {/* Product Metadata */}
+      <div className="flex flex-col gap-2">
+        <div className="flex justify-between items-center text-xs tracking-widest text-brand-camel uppercase font-bold">
+          <span>{product.category}</span>
+          <span>{product.color}</span>
+        </div>
+        <div className="flex justify-between items-end">
+          <h3 className="font-serif text-xl md:text-2xl font-light text-brand-brown-dark group-hover:text-brand-camel transition-colors">
+            {product.name}
+          </h3>
+          <span className="font-serif text-lg font-light text-brand-brown-dark">{product.price}</span>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
 
 const NewArrivals = ({ onAddToBag }) => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [activeTab, setActiveTab] = useState('specs');
   const [wishlisted, setWishlisted] = useState(false);
-  const containerRef = useRef(null);
-
-  useGSAP(() => {
-    // Parallax on image zoom/scale when scrolling
-    const items = document.querySelectorAll('.arrival-image-container');
-    items.forEach((item) => {
-      const img = item.querySelector('img');
-      gsap.fromTo(img, 
-        { scale: 1.15, yPercent: -5 },
-        {
-          scale: 1.0,
-          yPercent: 5,
-          scrollTrigger: {
-            trigger: item,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: true
-          }
-        }
-      );
-    });
-
-    // Reveal arrival headers
-    gsap.fromTo('.arrival-reveal-text',
-      { y: 50, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 1.2,
-        stagger: 0.15,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: '.arrival-section-header',
-          start: 'top 80%',
-        }
-      }
-    );
-
-    // Dynamic grid elements fade in with different heights/starts (asymmetrical parallax)
-    gsap.fromTo('.arrival-grid-card',
-      { y: 100, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 1.2,
-        stagger: 0.2,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: '.arrival-grid-container',
-          start: 'top 80%',
-        }
-      }
-    );
-
-  }, { scope: containerRef });
 
   const products = [
     {
@@ -120,87 +127,54 @@ const NewArrivals = ({ onAddToBag }) => {
     }
   ];
 
+  const headerVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1, 
+      y: 0, 
+      transition: { duration: 1.2, ease: "easeOut", staggerChildren: 0.15 }
+    }
+  };
+
   return (
     <section
       id="collection"
-      ref={containerRef}
       className="relative w-full py-24 md:py-32 px-6 md:px-12 bg-brand-offwhite overflow-hidden select-none border-t border-brand-camel/20"
     >
       {/* Background Accent Grid */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--color-brand-camel)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-brand-camel)_1px,transparent_1px)] bg-size-[15vw_15vw] opacity-10 pointer-events-none" />
 
       {/* Header */}
-      <div className="arrival-section-header max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-20 relative z-10">
+      <motion.div 
+        variants={headerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.8 }}
+        className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-20 relative z-10"
+      >
         <div className="flex flex-col gap-4">
-          <span className="arrival-reveal-text text-xs md:text-sm tracking-[0.3em] text-brand-camel uppercase font-bold">
+          <motion.span variants={headerVariants} className="text-xs md:text-sm tracking-[0.3em] text-brand-camel uppercase font-bold">
             02 / SUMMER INCEPTION
-          </span>
-          <h2 className="arrival-reveal-text font-serif text-4xl md:text-6xl font-light text-brand-brown-dark">
+          </motion.span>
+          <motion.h2 variants={headerVariants} className="font-serif text-4xl md:text-6xl font-light text-brand-brown-dark">
             The New Arrivals
-          </h2>
+          </motion.h2>
         </div>
-        <p className="arrival-reveal-text text-xs text-brand-brown-light font-semibold tracking-widest uppercase pb-2 border-b border-brand-brown-dark/10 max-w-xs leading-relaxed">
+        <motion.p variants={headerVariants} className="text-xs text-brand-brown-light font-semibold tracking-widest uppercase pb-2 border-b border-brand-brown-dark/10 max-w-xs leading-relaxed">
           Stitching together contemporary geometry with natural Italian earthy textures.
-        </p>
-      </div>
+        </motion.p>
+      </motion.div>
 
       {/* Grid Container */}
-      <div className="arrival-grid-container max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 relative z-10">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 relative z-10">
         {products.map((product, idx) => (
-          <div
-            key={product.id}
-            className={`arrival-grid-card flex flex-col gap-6 group relative cursor-pointer ${
-              idx === 1 ? 'md:translate-y-12' : '' // Asymmetric column offset for parallax feeling
-            }`}
-            onClick={() => setSelectedProduct(product)}
-            data-cursor-text="VIEW"
-          >
-            {/* Image Outer Wrapper */}
-            <div className="arrival-image-container w-full aspect-4/5 overflow-hidden bg-brand-beige-light border border-brand-camel/15 relative">
-              
-              {/* Product Badge */}
-              <span className="absolute top-4 left-4 z-20 px-3 py-1.5 bg-brand-brown-dark text-brand-offwhite text-[9px] font-bold tracking-widest uppercase">
-                {product.tag}
-              </span>
-
-              {/* Shoe Image */}
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-
-              {/* Bottom Subtle Tint */}
-              <div className="absolute inset-0 bg-linear-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
-
-              {/* Hover quick add overlay */}
-              <div className="absolute bottom-6 left-6 right-6 z-20 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onAddToBag(product);
-                  }}
-                  className="w-full py-3 bg-brand-offwhite hover:bg-brand-brown-dark text-brand-brown-dark hover:text-brand-offwhite font-semibold text-xs tracking-widest uppercase shadow transition-all duration-300"
-                >
-                  Quick Add
-                </button>
-              </div>
-            </div>
-
-            {/* Product Metadata */}
-            <div className="flex flex-col gap-2">
-              <div className="flex justify-between items-center text-xs tracking-widest text-brand-camel uppercase font-bold">
-                <span>{product.category}</span>
-                <span>{product.color}</span>
-              </div>
-              <div className="flex justify-between items-end">
-                <h3 className="font-serif text-xl md:text-2xl font-light text-brand-brown-dark group-hover:text-brand-camel transition-colors">
-                  {product.name}
-                </h3>
-                <span className="font-serif text-lg font-light text-brand-brown-dark">{product.price}</span>
-              </div>
-            </div>
-          </div>
+          <ArrivalCard 
+            key={product.id} 
+            product={product} 
+            idx={idx} 
+            onSelect={setSelectedProduct} 
+            onAddToBag={onAddToBag} 
+          />
         ))}
       </div>
 
@@ -217,7 +191,12 @@ const NewArrivals = ({ onAddToBag }) => {
           />
 
           {/* Modal Container */}
-          <div className="bg-brand-offwhite border border-brand-camel/20 max-w-4xl w-full max-h-[90vh] md:max-h-[80vh] overflow-y-auto grid grid-cols-1 md:grid-cols-2 relative z-10 shadow-2xl">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            className="bg-brand-offwhite border border-brand-camel/20 max-w-4xl w-full max-h-[90vh] md:max-h-[80vh] overflow-y-auto grid grid-cols-1 md:grid-cols-2 relative z-10 shadow-2xl"
+          >
             
             {/* Close Button */}
             <button
@@ -344,7 +323,7 @@ const NewArrivals = ({ onAddToBag }) => {
 
             </div>
 
-          </div>
+          </motion.div>
         </div>
       )}
     </section>

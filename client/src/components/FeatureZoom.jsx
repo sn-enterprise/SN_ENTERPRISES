@@ -1,46 +1,18 @@
 import React, { useState, useRef } from 'react';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import heroShoe from '../assets/hero_shoe.png';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const FeatureZoom = () => {
   const [activeHotspot, setActiveHotspot] = useState(null);
   const containerRef = useRef(null);
 
-  useGSAP(() => {
-    // Parallax scaling of the center showcase shoe on scroll
-    gsap.fromTo('.showcase-zoom-shoe',
-      { scale: 0.85, rotation: -3 },
-      {
-        scale: 1.05,
-        rotation: 3,
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: true
-        }
-      }
-    );
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
 
-    // Fade in lines and badges
-    gsap.fromTo('.showcase-reveal',
-      { opacity: 0, y: 30 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        stagger: 0.15,
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'top 75%'
-        }
-      }
-    );
-  }, { scope: containerRef });
+  const shoeScale = useTransform(scrollYProgress, [0, 1], [0.85, 1.05]);
+  const shoeRotation = useTransform(scrollYProgress, [0, 1], [-3, 3]);
 
   const hotspots = [
     {
@@ -77,11 +49,29 @@ const FeatureZoom = () => {
     }
   ];
 
+  const revealVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { duration: 1, ease: "easeOut" } 
+    }
+  };
+
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.15
+      }
+    }
+  };
+
   return (
     <section
       id="craftsmanship"
       ref={containerRef}
-      className="showcase-section relative w-full py-24 md:py-32 px-6 md:px-12 bg-brand-beige-light overflow-hidden select-none border-t border-brand-camel/20"
+      className="relative w-full py-24 md:py-32 px-6 md:px-12 bg-brand-beige-light overflow-hidden select-none border-t border-brand-camel/20"
     >
       {/* Absolute Decorative Texts */}
       <div className="absolute top-10 left-10 text-[10vw] font-serif font-black text-[#EFEAE2]/30 select-none pointer-events-none uppercase">
@@ -94,18 +84,24 @@ const FeatureZoom = () => {
       <div className="max-w-7xl mx-auto flex flex-col items-center relative z-10">
         
         {/* Header */}
-        <div className="text-center max-w-2xl flex flex-col items-center gap-4 mb-20">
-          <span className="showcase-reveal text-xs md:text-sm tracking-[0.3em] text-brand-camel uppercase font-bold">
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          className="text-center max-w-2xl flex flex-col items-center gap-4 mb-20"
+        >
+          <motion.span variants={revealVariants} className="text-xs md:text-sm tracking-[0.3em] text-brand-camel uppercase font-bold">
             03 / DETAILED SPECIFICATION
-          </span>
-          <h2 className="showcase-reveal font-serif text-4xl md:text-5xl font-light text-brand-brown-dark">
+          </motion.span>
+          <motion.h2 variants={revealVariants} className="font-serif text-4xl md:text-5xl font-light text-brand-brown-dark">
             Anatomy of the Sole
-          </h2>
-          <div className="showcase-reveal h-px w-12 bg-brand-camel my-2" />
-          <p className="showcase-reveal text-sm text-brand-brown-light opacity-80 leading-relaxed">
+          </motion.h2>
+          <motion.div variants={revealVariants} className="h-px w-12 bg-brand-camel my-2" />
+          <motion.p variants={revealVariants} className="text-sm text-brand-brown-light opacity-80 leading-relaxed">
             Click on the pulsing coordinates below to examine the bespoke tailoring and structural blueprints of our classic signature shoe.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
         {/* Interactive Shoe Frame */}
         <div className="relative w-full max-w-[850px] aspect-16/10 flex items-center justify-center bg-brand-offwhite/50 border border-brand-camel/15 p-4 md:p-8 rounded shadow-sm">
@@ -115,10 +111,11 @@ const FeatureZoom = () => {
 
           {/* Central Shoe Image */}
           <div className="relative w-[80%] max-w-[550px] aspect-4/3 flex items-center justify-center z-10 pointer-events-none">
-            <img
+            <motion.img
               src={heroShoe}
               alt="Soleil Shoe Dissection"
-              className="showcase-zoom-shoe w-full h-auto object-contain drop-shadow-[0_30px_60px_rgba(35,18,11,0.12)]"
+              style={{ scale: shoeScale, rotate: shoeRotation }}
+              className="w-full h-auto object-contain drop-shadow-[0_30px_60px_rgba(35,18,11,0.12)]"
             />
           </div>
 
