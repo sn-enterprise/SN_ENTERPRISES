@@ -4,7 +4,7 @@ import { X, ShoppingBag, Trash2, ArrowRight } from 'lucide-react';
 
 // Component imports
 import Preloader from './components/Preloader';
-import CustomCursor from './components/CustomCursor';
+
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import Philosophy from './components/Philosophy';
@@ -86,8 +86,7 @@ function App() {
       ) : (
         <div className="relative min-h-screen bg-brand-offwhite text-brand-brown-dark">
           
-          {/* 2. Custom Cursor Follower */}
-          <CustomCursor />
+          {/* Removed Custom Cursor Follower */}
 
           {/* 3. Sticky Top Navbar */}
           <Navbar

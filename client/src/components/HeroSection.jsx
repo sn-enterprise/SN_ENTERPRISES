@@ -206,7 +206,7 @@ const HeroSection = ({ onShopNowClick }) => {
           </motion.div>
           <motion.div variants={specVariant} className="hero-spec-item">
             <span className="block text-[10px] tracking-widest text-brand-camel font-bold uppercase mb-1">ORIGIN</span>
-            <span className="text-xs text-brand-brown-dark font-semibold font-serif">Florence, Italy</span>
+            <span className="text-xs text-brand-brown-dark font-semibold font-serif">Kolkata, West Bengal</span>
           </motion.div>
         </motion.div>
 
