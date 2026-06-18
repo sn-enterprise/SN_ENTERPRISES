@@ -1,18 +1,150 @@
-@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
 @import "tailwindcss";
 
 @theme {
-    --color-brand-bg: #E5E5CB;
-    --color-brand-cream: #D5CEA3;
-    --color-brand-brown: #635454;
-    --color-brand-dark: #3C2A21;
-    --font-sans: "Josefin Sans", sans-serif;
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  
+  --color-brand-offwhite: #FAF9F6;
+  --color-brand-beige-light: #F5F0EA;
+  --color-brand-beige: #D9C3B0;
+  --color-brand-camel: #C5A880;
+  --color-brand-brown-light: #4A3B32;
+  --color-brand-brown-dark: #23120B;
 }
 
-@layer base {
-    body {
-        @apply bg-brand-bg/10;
-        font-family: "Josefin Sans", sans-serif;
-        min-height: 100vh;
-    }
+/* Custom base styles and scrollbar overrides */
+html {
+  scroll-behavior: initial;
+}
+
+body {
+  background-color: var(--color-brand-offwhite);
+  color: var(--color-brand-brown-dark);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Lenis smooth scrolling helper styles */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-brand-offwhite);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-brand-camel);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand-brown-light);
+}
+
+/* Hide default cursor on desktop devices when custom cursor is active */
+@media (min-width: 1024px) {
+  .custom-cursor-active,
+  .custom-cursor-active * {
+    cursor: none !important;
+  }
+}
+
+/* Selection colors */
+::selection {
+  background-color: var(--color-brand-camel);
+  color: var(--color-brand-offwhite);
+}
+
+/* Custom Animation Utility Styles */
+.line-span {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.word-span {
+  display: inline-block;
+  transform: translateY(100%);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Glassmorphism utility */
+.glass-panel {
+  background: rgba(250, 249, 246, 0.65);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(197, 168, 128, 0.15);
+}
+
+.glass-panel-dark {
+  background: rgba(35, 18, 11, 0.8);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(217, 195, 176, 0.1);
+}
+
+/* Custom cursor element styling */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  background-color: var(--color-brand-brown-dark);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s, background-color 0.3s;
+}
+
+.custom-cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--color-brand-camel);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s, border-color 0.3s;
+}
+
+/* Circular Text Style for Hover badge */
+.rotating-badge {
+  animation: spin 20s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
