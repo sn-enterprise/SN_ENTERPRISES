@@ -146,12 +146,8 @@ const Footer = () => {
             </span>
             <div className="flex flex-col gap-4 text-xs text-brand-beige leading-relaxed">
               <div>
-                <span className="block text-brand-offwhite font-semibold mb-1">Maison Naples</span>
-                <span className="opacity-80">Via dei Mille, 12<br />80121 Napoli, Italy</span>
-              </div>
-              <div>
-                <span className="block text-brand-offwhite font-semibold mb-1">Atelier Florence</span>
-                <span className="opacity-80">Via de' Tornabuoni, 8r<br />50123 Firenze, Italy</span>
+                <span className="block text-brand-offwhite font-semibold mb-1">Kolkata, West Bengal</span>
+                <span className="opacity-80">123 Park Street<br />Kolkata, West Bengal, 700016</span>
               </div>
             </div>
           </div>
